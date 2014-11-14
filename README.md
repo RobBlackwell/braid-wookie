@@ -1,7 +1,7 @@
 braid-wookie
 ============
 
-An adapter that allows Common Lisp braid middleware to be used with the
+An adapter that allows Common Lisp Braid middleware to be used with the
 Wookie web server.
 
 See

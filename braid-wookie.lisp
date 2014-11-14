@@ -7,7 +7,7 @@
 (defvar *handler* nil)
 
 (defun wookie-request-to-braid-request (request)
-  "Converts a hunchentoot request object to a braid request."
+  "Converts a Wookie request object to a braid request."
   (braid:make-request (wookie:request-uri request) 
 		     :method (wookie:request-method request) 
 		     :headers (wookie:request-headers request)
@@ -51,6 +51,9 @@
 	
 (defun stop-wookie ()
   "Stops the Wookie web server."
-  (cl-async:exit-event-loop))
+	;; How?
+	())
+
+
 
 
