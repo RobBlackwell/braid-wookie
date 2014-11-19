@@ -8,10 +8,11 @@
 
 (defun wookie-request-to-braid-request (request)
   "Converts a Wookie request object to a braid request."
-  (braid:make-request (wookie:request-uri request) 
-		     :method (wookie:request-method request) 
-		     :headers (wookie:request-headers request)
-		     :body (wookie:request-data request)))
+  (braid:make-request
+	 :uri (puri:render-uri (wookie:request-uri request) nil)
+	 :request-method (wookie:request-method request) 
+	 :headers (wookie:request-headers request)
+	 :body (wookie:request-data request)))
 
 (wookie:defroute (:get ".*") (req res)
 	(let* ((fn
@@ -21,9 +22,9 @@
 				 (response (funcall fn (wookie-request-to-braid-request req))))
 
 		(wookie:send-response res
-									 :status (braid:response-status-code response)
-									 :headers (braid:message-headers response)
-									 :body (braid:message-body response))))
+									 :status (braid:status response)
+									 :headers (braid:headers response)
+									 :body (braid:body response))))
 
 (defun run-wookie (handler &key (bind nil) (port 8080))
   "Runs a Wookie web server to serve the given handler."
